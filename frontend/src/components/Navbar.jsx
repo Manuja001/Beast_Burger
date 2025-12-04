@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 
 function Navbar() {
@@ -7,6 +7,7 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Handle scroll effect
   useEffect(() => {
@@ -27,8 +28,8 @@ function Navbar() {
   const isActive = (path) => location.pathname === path;
 
   const handleLogin = () => {
-    // TODO: Implement actual login logic
-    setIsLoggedIn(true);
+    // Navigate to login page
+    navigate("/login");
   };
 
   const handleLogout = () => {
