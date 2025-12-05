@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useCartStore from "../store/cartStore";
 import burger1 from "../assets/burger_1.jpg";
 import burger2 from "../assets/burger_2.png";
 import CheeseBurger from "../assets/CheeseBurger.png";
@@ -18,6 +19,8 @@ import combo4 from "../assets/combo_4.png";
 
 function Menu() {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [addedItems, setAddedItems] = useState({});
+  const addItem = useCartStore((state) => state.addItem);
 
   const menuItems = [
     {
@@ -260,8 +263,44 @@ function Menu() {
                 </div>
 
                 {/* Order Button */}
-                <button className="w-full bg-orange-600 text-white py-3 rounded-lg font-bold hover:bg-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-600/50 transform hover:scale-105 active:scale-95">
-                  Add to Cart
+                <button
+                  onClick={() => {
+                    addItem(item);
+                    setAddedItems((prev) => ({ ...prev, [item.id]: true }));
+                    setTimeout(() => {
+                      setAddedItems((prev) => {
+                        const newState = { ...prev };
+                        delete newState[item.id];
+                        return newState;
+                      });
+                    }, 2000);
+                  }}
+                  className={`w-full py-3 rounded-lg font-bold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 ${
+                    addedItems[item.id]
+                      ? "bg-green-600 text-white"
+                      : "bg-orange-600 text-white hover:bg-orange-700 hover:shadow-orange-600/50"
+                  }`}
+                >
+                  {addedItems[item.id] ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      Added!
+                    </span>
+                  ) : (
+                    "Add to Cart"
+                  )}
                 </button>
               </div>
             </div>
