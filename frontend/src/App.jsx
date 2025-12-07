@@ -1,5 +1,5 @@
 import React from "react";
-
+import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -14,7 +14,7 @@ import SignUp from "./components/SignUp";
 
 function AnimatedRoutes() {
   const location = useLocation();
-  
+
   return (
     <div
       key={location.pathname}
@@ -47,6 +47,18 @@ function App() {
         </main>
         <Footer />
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </BrowserRouter>
   );
 }
