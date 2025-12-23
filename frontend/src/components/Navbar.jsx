@@ -111,7 +111,7 @@ function Navbar() {
                 animation: `fadeInDown 0.5s ease-out ${navLinks.length * 0.1}s both`,
               }}
             >
-              <span className="relative z-10 flex items-center gap-2">
+              <span className="relative z-10 flex items-center gap-2" onClick ={() =>{navigate("/checkout");}}>
                 Order Now
                 <svg
                   className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 function Login() {
+  const url = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -17,17 +19,29 @@ function Login() {
     setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // TODO: Implement actual authentication
-    // For now, simple validation
-    if (formData.email === "admin@beastburger.com" && formData.password === "admin123") {
-      // Store auth token (will be replaced with actual auth)
-      localStorage.setItem("adminAuth", "true");
-      navigate("/");
-    } else {
-      setError("Invalid email or password");
+    try {
+      const response = await fetch(url + "/api/admin/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("adminAuth", "true");
+        console.log(data);
+        toast.success("Login successful!");
+        navigate("/");
+      } else {
+        toast.error("Invalid email or password");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      toast.error("Network error. Please try again.");
     }
   };
 
@@ -50,7 +64,10 @@ function Login() {
             )}
 
             <div>
-              <label htmlFor="email" className="block text-white font-semibold mb-2">
+              <label
+                htmlFor="email"
+                className="block text-white font-semibold mb-2"
+              >
                 Email
               </label>
               <input
@@ -66,7 +83,10 @@ function Login() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-white font-semibold mb-2">
+              <label
+                htmlFor="password"
+                className="block text-white font-semibold mb-2"
+              >
                 Password
               </label>
               <input
@@ -100,4 +120,3 @@ function Login() {
 }
 
 export default Login;
-

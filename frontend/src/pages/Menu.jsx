@@ -315,20 +315,6 @@ function Menu() {
         </div>
       )}
 
-      {/* Call to Action Section */}
-      <div className="max-w-7xl mx-auto mt-16 text-center">
-        <div className="bg-gradient-to-r from-orange-600 to-orange-700 rounded-2xl p-8 md:p-12 shadow-2xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Can't Decide?
-          </h2>
-          <p className="text-xl text-white/90 mb-6 max-w-2xl mx-auto">
-            Try our combo meals or visit us in-store to experience the full Beast Burger menu!
-          </p>
-          <button className="bg-black text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-900 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 transform">
-            Order Combo Meal
-          </button>
-        </div>
-      </div>
     </div>
   );
 }
